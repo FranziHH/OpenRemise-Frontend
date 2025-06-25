@@ -111,7 +111,8 @@ class _ProgramScreenState extends ConsumerState<ProgramScreen> {
                     selectedIcon: const Icon(Icons.power_off),
                     icon: const Icon(Icons.power),
                   ),
-                  title: smallWidth ? null : Text('Program'),
+                  // title: smallWidth ? null : Text('Program'),
+                  title: Text('Program'),
                   actions: [
                     IconButton(
                       onPressed: () => setState(() {

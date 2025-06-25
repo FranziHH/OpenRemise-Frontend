@@ -74,7 +74,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 selectedIcon: const Icon(Icons.power_off),
                 icon: const Icon(Icons.power),
               ),
-              title: smallWidth ? null : Text('Settings'),
+              // title: smallWidth ? null : Text('Settings'),
+              title: Text('Settings'),
               actions: [
                 ValueListenableBuilder<bool>(
                   valueListenable: _expandAllNotifier,
@@ -321,10 +322,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             FormBuilderFieldOption(
                               value: true,
                               child: Tooltip(
-                                  message:
-                                      'Display a query when leaving the page',
-                                  waitDuration: Duration(seconds: 1),
-                                  child: Text('Message on page leave')),
+                                message:
+                                    'Display a query when leaving the page',
+                                waitDuration: Duration(seconds: 1),
+                                child: Text('Message on page leave'),
+                              ),
                             ),
                           ],
                           valueTransformer: (value) => value?.contains(true),
@@ -685,9 +687,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               ),
                             ),
                           ],
+                          /*
                           orientation: smallWidth
                               ? OptionsOrientation.vertical
                               : OptionsOrientation.wrap,
+                          */
+                          orientation: OptionsOrientation.vertical,
                         ),
                       ],
                     ),
@@ -749,46 +754,67 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 ),
                               ),
                             ],
+                            /*
                             orientation: smallWidth
                                 ? OptionsOrientation.vertical
                                 : OptionsOrientation.wrap,
+                            */
+                            orientation: OptionsOrientation.vertical,
                           ),
                         ],
                       ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              if (_formKey.currentState == null) return;
-                              _formKey.currentState!.reset();
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                          ),
-                          OutlinedButton(
-                            onPressed: () {
-                              if (_formKey.currentState?.saveAndValidate() ??
-                                  false) {
-                                // Remove sta_pass if it only contains *
-                                var map = Map.of(_formKey.currentState!.value);
-                                final String staPass = map['sta_pass']!;
-                                if (staPass.isNotEmpty &&
-                                    staPass == '*' * staPass.length) {
-                                  map.remove('sta_pass');
-                                }
-                                ref
-                                    .read(settingsProvider.notifier)
-                                    .updateSettings(Config.fromJson(map));
-                              }
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
+                    Center(
+                      child: IntrinsicWidth(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 24),
+                            Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: -12),
+                              child: const Divider(thickness: 1),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                OutlinedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState == null) return;
+                                    _formKey.currentState!.reset();
+                                  },
+                                  child: const Text('Cancel'),
+                                ),
+                                const SizedBox(width: 16),
+                                OutlinedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState
+                                            ?.saveAndValidate() ??
+                                        false) {
+                                      var map =
+                                          Map.of(_formKey.currentState!.value);
+                                      final String staPass = map['sta_pass']!;
+                                      if (staPass.isNotEmpty &&
+                                          staPass == '*' * staPass.length) {
+                                        map.remove('sta_pass');
+                                      }
+                                      ref
+                                          .read(settingsProvider.notifier)
+                                          .updateSettings(Config.fromJson(map));
+                                    }
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: -12),
+                              child: const Divider(thickness: 1),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -44,14 +44,14 @@ Stream<ConnectionStatus> connectionStatus(ref) async* {
       await for (final _ in z21.stream.timeout(Duration(seconds: timeout))) {
         if (previousStatus != ConnectionStatus.connected) {
           previousStatus = ConnectionStatus.connected;
-          debugPrint("conn");
+          debugPrint('conn');
           yield previousStatus;
         }
       }
     } catch (_) {
       if (previousStatus != ConnectionStatus.disconnected) {
         previousStatus = ConnectionStatus.disconnected;
-        debugPrint("disc");
+        debugPrint('disc');
         yield previousStatus;
       }
     }

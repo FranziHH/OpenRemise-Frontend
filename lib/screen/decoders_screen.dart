@@ -66,7 +66,8 @@ class _DecodersScreenState extends ConsumerState<DecodersScreen> {
               selectedIcon: const Icon(Icons.power_off),
               icon: const Icon(Icons.power),
             ),
-            title: smallWidth ? null : Text('Decoders'),
+            // title: smallWidth ? null : Text('Decoders'),
+            title: Text('Decoders '),
             actions: [
               IconButton(
                 onPressed: () => showDialog(

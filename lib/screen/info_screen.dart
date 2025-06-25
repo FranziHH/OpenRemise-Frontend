@@ -89,7 +89,8 @@ class _InfoScreenState extends ConsumerState<InfoScreen> {
               selectedIcon: const Icon(Icons.power_off),
               icon: const Icon(Icons.power),
             ),
-            title: smallWidth ? null : Text('Info'),
+            // title: smallWidth ? null : Text('Info'),
+            title: Text('Info'),
             actions: [
               IconButton(
                 onPressed: () => ref.read(sysProvider.notifier).refresh(),
@@ -120,7 +121,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(data.version!),
+                      Text('${data.version!} FW'),
                       if (availableFirmwareVersion.hasValue == true &&
                           Version.parse(
                                 availableFirmwareVersion.requireValue,
@@ -140,7 +141,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> {
                       final raw = '${data.compileDate} ${data.compileTime}';
                       final parsed =
                           DateFormat('MMM dd yyyy HH:mm:ss').parseStrict(raw);
-                      return DateFormat('dd/MM/yyyy, HH:mm').format(parsed);
+                      return DateFormat('yyyy-MM-dd, HH:mm').format(parsed);
                     } catch (e) {
                       return 'Invalid timestamp';
                     }

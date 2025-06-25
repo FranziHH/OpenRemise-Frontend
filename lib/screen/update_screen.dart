@@ -96,7 +96,8 @@ class _UpdateScreenState extends ConsumerState<UpdateScreen> {
               selectedIcon: const Icon(Icons.power_off),
               icon: const Icon(Icons.power),
             ),
-            title: smallWidth ? null : Text('Update'),
+            //title: smallWidth ? null : Text('Update'),
+            title: Text('Update'),
             actions: [
               IconButton(
                 onPressed: () => setState(() {
