@@ -14,6 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import 'package:Frontend/constant/current_limits.dart';
+import 'package:Frontend/constant/dcc_bidi_durations.dart';
+import 'package:Frontend/constant/dcc_programming_types.dart';
 import 'package:Frontend/constant/default_settings.dart';
 import 'package:Frontend/constant/open_remise_icons.dart';
 import 'package:Frontend/constant/small_screen_width.dart';
@@ -90,9 +93,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   },
                 ),
                 IconButton(
-                  onPressed: () {
-                    _formKey.currentState?.patchValue(DefaultSettings.values());
-                  },
+                  onPressed: () =>
+                      _formKey.currentState?.patchValue(defaultSettings),
                   tooltip: 'Defaults',
                   icon: const Icon(Icons.settings_suggest),
                 ),
@@ -354,8 +356,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             divisions: 3 - 0,
                             displayValues: DisplayValues.current,
                             valueWidget: (value) => Text(
-                              DefaultSettings.currentLimit[int.parse(value)]
-                                  .toString(),
+                              currentLimits[int.parse(value)].toString(),
                             ),
                           ),
                         ),
@@ -371,22 +372,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               helperText: (_formKey.currentState
                                               ?.fields['cur_lim_serv']?.value ??
                                           0) >
-                                      DefaultSettings.currentLimit.indexOf(1.3)
+                                      currentLimits.indexOf(1.3)
                                   ? '\u26A0 exceeds recommended limit'
                                   : null,
                               helperStyle: TextStyle(
                                 color: Theme.of(context).colorScheme.error,
                               ),
                             ),
-                            onChanged: (_) => setState(() {}),
                             valueTransformer: (value) => value!.toInt(),
                             min: 0,
                             max: 3,
                             divisions: 3 - 0,
                             displayValues: DisplayValues.current,
                             valueWidget: (value) => Text(
-                              DefaultSettings.currentLimit[int.parse(value)]
-                                  .toString(),
+                              currentLimits[int.parse(value)].toString(),
                             ),
                           ),
                         ),
@@ -510,21 +509,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           waitDuration: const Duration(seconds: 1),
                           child: FormBuilderSlider(
                             name: 'dcc_bidibit_dur',
-                            initialValue: DefaultSettings.dccBiDiDurations
+                            initialValue: dccBiDiDurations
                                 .indexOf(data.dccBiDiBitDuration!)
                                 .toDouble(),
                             decoration: const InputDecoration(
                               labelText: 'BiDi bit duration [µs]',
                             ),
-                            valueTransformer: (value) => DefaultSettings
-                                .dccBiDiDurations[value!.toInt()],
+                            valueTransformer: (value) =>
+                                dccBiDiDurations[value!.toInt()],
                             min: 0,
                             max: 61 - 57 + 1,
                             divisions: 61 - 57 + 1,
                             displayValues: DisplayValues.current,
                             valueWidget: (value) => Text(
-                              DefaultSettings.dccBiDiDurations[int.parse(value)]
-                                  .toString(),
+                              dccBiDiDurations[int.parse(value)].toString(),
                             ),
                           ),
                         ),
@@ -543,10 +541,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             max: 3,
                             divisions: 3 - 0,
                             displayValues: DisplayValues.current,
-                            valueWidget: (value) => Text(
-                              DefaultSettings
-                                  .dccProgrammingTypes[int.parse(value)],
-                            ),
+                            valueWidget: (value) =>
+                                Text(dccProgrammingTypes[int.parse(value)]),
                           ),
                         ),
                         Tooltip(
