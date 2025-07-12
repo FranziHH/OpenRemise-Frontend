@@ -46,6 +46,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:html' as html;
 
 /// \todo document
 void main() async {
@@ -238,10 +239,21 @@ class _HomeViewState extends ConsumerState<HomeView> {
             : null,
         title: MediaQuery.of(context).size.width < smallScreenWidth
             ? const Text('Open|Remise')
-            : SvgPicture.asset(
-                ref.watch(darkModeProvider)
-                    ? 'data/images/logo_dark.svg'
-                    : 'data/images/logo_light.svg',
+            : MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Tooltip(
+                  message: 'Page reload',
+                  child: GestureDetector(
+                    onTap: () {
+                      html.window.location.reload();
+                    },
+                    child: SvgPicture.asset(
+                      ref.watch(darkModeProvider)
+                          ? 'data/images/logo_dark.svg'
+                          : 'data/images/logo_light.svg',
+                    ),
+                  ),
+                ),
               ),
         actions: [
           IconButton(
