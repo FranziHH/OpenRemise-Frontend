@@ -6,9 +6,9 @@ if(Doxygen_FOUND)
     NAME
     Doxygen
     URL
-    "https://github.com/doxygen/doxygen/releases/download/Release_1_13_2/doxygen-1.13.2.linux.bin.tar.gz"
+    "https://github.com/doxygen/doxygen/releases/download/Release_1_14_0/doxygen-1.14.0.linux.bin.tar.gz"
     VERSION
-    1.13.2
+    1.14.0
     DOWNLOAD_ONLY
     ON)
   set(DOXYGEN_EXECUTABLE ${Doxygen_SOURCE_DIR}/bin/doxygen)
@@ -28,7 +28,7 @@ if(Doxygen_FOUND)
   set(PLANTUML_JAR_PATH ${PlantUML_SOURCE_DIR}/plantuml-1.2025.1.jar)
 
   # Get Doxygen Awesome
-  cpmaddpackage("gh:jothepro/doxygen-awesome-css@2.3.4")
+  cpmaddpackage("gh:jothepro/doxygen-awesome-css@2.4.0")
 
   # Get logo and fonts
   file(DOWNLOAD
@@ -80,6 +80,7 @@ if(Doxygen_FOUND)
   set(DOXYGEN_HTML_COLORSTYLE_GAMMA 113)
   set(DOXYGEN_HTML_COPY_CLIPBOARD NO)
   set(DOXYGEN_GENERATE_TREEVIEW YES)
+  set(DOXYGEN_PAGE_OUTLINE_PANEL NO)
   set(DOXYGEN_MACRO_EXPANSION YES)
   set(DOXYGEN_EXPAND_ONLY_PREDEF YES)
   set(DOXYGEN_UML_LOOK YES)
