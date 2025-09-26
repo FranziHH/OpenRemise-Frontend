@@ -1,18 +1,17 @@
+# Get Doxygen
+cpmaddpackage(
+  NAME
+  Doxygen
+  URL
+  "https://github.com/doxygen/doxygen/releases/download/Release_1_14_0/doxygen-1.14.0.linux.bin.tar.gz"
+  VERSION
+  1.14.0
+  DOWNLOAD_ONLY
+  ON)
+set(DOXYGEN_EXECUTABLE ${Doxygen_SOURCE_DIR}/bin/doxygen)
 find_package(Doxygen QUIET COMPONENTS dot)
 
-if(Doxygen_FOUND)
-  # Get more recent version of Doxygen (remove once updated in Ubuntu 24.04)
-  cpmaddpackage(
-    NAME
-    Doxygen
-    URL
-    "https://github.com/doxygen/doxygen/releases/download/Release_1_14_0/doxygen-1.14.0.linux.bin.tar.gz"
-    VERSION
-    1.14.0
-    DOWNLOAD_ONLY
-    ON)
-  set(DOXYGEN_EXECUTABLE ${Doxygen_SOURCE_DIR}/bin/doxygen)
-
+if(TARGET Doxygen::dot)
   # Get PlantUML
   cpmaddpackage(
     NAME
