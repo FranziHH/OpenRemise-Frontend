@@ -203,7 +203,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             name: 'sta_ssid',
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter a SSID';
+                                // New: Ethernet don't need SSID
+                                return null;
+                                // return 'Please enter a SSID';
                               } else if (value.length > 32) {
                                 return 'SSID too long';
                               } else {
