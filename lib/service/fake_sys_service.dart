@@ -57,6 +57,7 @@ class FakeSysService implements SysService {
       () => Info(
         state: state.toString().split('.')[1],
         version: '0.7.0',
+        versionExt: '',
         projectName: 'Frontend',
         compileTime: DateFormat('HH:mm:ss').format(now),
         compileDate: DateFormat('MMM dd yyyy').format(now),

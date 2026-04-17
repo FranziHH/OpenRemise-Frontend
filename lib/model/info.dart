@@ -26,6 +26,7 @@ abstract class Info with _$Info {
   const factory Info({
     @JsonKey(name: 'state') required String state,
     @JsonKey(name: 'version') required String version,
+    @JsonKey(name: 'version_ext') required String versionExt,
     @JsonKey(name: 'project_name') required String projectName,
     @JsonKey(name: 'compile_time') required String compileTime,
     @JsonKey(name: 'compile_date') required String compileDate,

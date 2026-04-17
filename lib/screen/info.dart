@@ -106,7 +106,7 @@ class _InfoScreenState extends ConsumerState<InfoScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(data.version),
+                      Text('${data.version} ${data.versionExt}'),
                       if (availableFirmwareVersion.hasValue == true &&
                           Version.parse(
                                 availableFirmwareVersion.requireValue,
