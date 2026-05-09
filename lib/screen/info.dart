@@ -168,10 +168,10 @@ class _InfoScreenState extends ConsumerState<InfoScreen> {
                   Text(
                     '${(data.supplyVoltage / 1000).toStringAsFixed(2)}V',
                   ),
-                  const Text('VCC voltage'),
-                  Text(
-                    '${(data.vccVoltage / 1000).toStringAsFixed(2)}V',
-                  ),
+                  if (!data.legacy) ...[
+                    const Text('VCC voltage'),
+                    Text('${(data.vccVoltage / 1000).toStringAsFixed(2)}V'),
+                  ],
                   const Text('Current'),
                   Text(
                     '${(data.current / 1000).toStringAsFixed(2)}A',
