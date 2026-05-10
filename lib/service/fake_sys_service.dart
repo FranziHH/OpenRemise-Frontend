@@ -63,7 +63,6 @@ class FakeSysService implements SysService {
         compileDate: DateFormat('MMM dd yyyy').format(now),
         idfVersion: '5.5.3',
         revision: '0.1.2',
-        legacy: false,
         mdns: 'remise.local',
         ip: '127.0.0.1',
         mac: '80:80:80:80:80:80',
