@@ -47,6 +47,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:restart_app/restart_app.dart';
+// Lokaler Fix: Restart.restartApp() schlägt in dieser Umgebung fehl,
+import 'package:universal_html/html.dart' as html;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 /// \todo document
 class HomeView extends ConsumerStatefulWidget {
@@ -317,7 +320,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
         message: 'Reload',
         waitDuration: const Duration(seconds: 1),
         child: GestureDetector(
-          onTap: () => Restart.restartApp(),
+          onTap: () {
+            // Lokaler Fix: Restart.restartApp() schlägt in dieser Umgebung fehl,
+            // daher wird der native Browser-Reload verwendet.
+            if (kIsWeb) {
+              html.window.location.reload();
+            } else {
+              Restart.restartApp();
+            }
+            // Ende lokaler Fix
+          },
           child: SvgPicture.asset(
             assetName,
             colorMapper: DarkModeColorMapper(ref.watch(darkModeProvider)),

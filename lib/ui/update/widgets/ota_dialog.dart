@@ -25,6 +25,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restart_app/restart_app.dart';
+// Lokaler Fix: Restart.restartApp() schlägt in dieser Umgebung fehl,
+import 'package:universal_html/html.dart' as html;
 
 /// Dialog to update OpenRemise boards
 ///
@@ -70,7 +72,19 @@ class _OtaDialogState extends ConsumerState<OtaDialog> {
       ),
       actions: [
         state.status == UpdateStatus.Completed
-            ? TextButton(onPressed: Restart.restartApp, child: Text('OK'))
+            ? TextButton(
+                onPressed: () {
+                  // Lokaler Fix: Restart.restartApp() schlägt in dieser Umgebung fehl,
+                  // daher wird der native Browser-Reload verwendet.
+                  if (kIsWeb) {
+                    html.window.location.reload();
+                  } else {
+                    Restart.restartApp();
+                  }
+                  // Ende lokaler Fix
+                },
+                child: const Text('OK'),
+              )
             : TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text('Cancel'),
