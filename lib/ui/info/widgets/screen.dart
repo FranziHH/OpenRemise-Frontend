@@ -153,7 +153,8 @@ class _InfoScreenState extends ConsumerState<InfoScreen> {
                   const Text('MAC'),
                   Text(data.mac),
                   const Text('RSSI'),
-                  Text('${(2 * (data.rssi + 100)).clamp(0, 100)}%'),
+                  // Text('${(2 * (data.rssi + 100)).clamp(0, 100)}%'),
+                  Text('${data.rssi} dBm'),
                 ],
               ),
               const SliverToBoxAdapter(
