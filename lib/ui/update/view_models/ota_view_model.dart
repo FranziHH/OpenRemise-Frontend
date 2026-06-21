@@ -68,6 +68,24 @@ class OtaViewModel extends _$OtaViewModel {
     }
   }
 
+  // Lokaler Fix:
+  /// Cancels the OTA process
+  Future<void> cancel() async {
+    // 1. Laufenden Prozess beenden
+    await _events.cancel();
+    await _ota.close();
+
+    // 2. StreamQueue für den nächsten Start neu initialisieren
+    _events = StreamQueue(_ota.stream);
+
+    state = state.copyWith(
+      status: UpdateStatus.Idle,
+      message: 'Update cancelled',
+      progress: 0,
+    );
+  }
+  // Ende lokaler Fix
+
   /// \todo document
   Future<void> _connect() async {
     state =

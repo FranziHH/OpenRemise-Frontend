@@ -86,7 +86,13 @@ class _OtaDialogState extends ConsumerState<OtaDialog> {
                 child: const Text('OK'),
               )
             : TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  // Lokaler Fix:
+                  // ViewModel informieren (optional, falls dispose nicht greift)
+                  ref.read(otaViewModelProvider.notifier).cancel();
+                  // Ende lokaler Fix
+                  Navigator.pop(context);
+                },
                 child: Text('Cancel'),
               ),
       ],
