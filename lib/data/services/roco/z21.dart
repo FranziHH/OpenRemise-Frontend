@@ -1285,12 +1285,13 @@ class LanXLocoInfo extends Z21Command {
         rvvvvvvv = dataset[8],
         doubleTraction = dataset[9] & (1 << 6) == (1 << 6),
         smartSearch = dataset[9] & (1 << 5) == (1 << 5),
-        f31_0 = dataset.sublist(11, dataset.length - 1).fold(
-                  dataset[10] << 5,
-                  (previousValue, element) => element << 8 | previousValue,
-                ) | // F31-F5
-            ((dataset[9] & 0x0F) << 1) | // F4-F1
-            ((dataset[9] & (1 << 4)) >> 4) // F0
+        f31_0 =
+            dataset.sublist(10, dataset.length - 1).asMap().entries.fold<int>(
+                      0,
+                      (v, e) => v | (e.value << (5 + e.key * 8)),
+                    ) | // F31-F5
+                ((dataset[9] & 0x0F) << 1) | // F4-F1
+                ((dataset[9] & (1 << 4)) >> 4) // F0
   {
     assert(dataset.length >= 0x0F);
   }
@@ -1632,11 +1633,11 @@ final Provider<Z21Service> z21ServiceProvider = Provider<Z21Service>((ref) {
     null,
     onError: (e) {
       debugPrint('Z21 stream onError $e');
-      ref.invalidate(z21ServiceProvider);
+      ref.invalidateSelf();
     },
     onDone: () {
       debugPrint('Z21 stream onDone');
-      ref.invalidate(z21ServiceProvider);
+      ref.invalidateSelf();
     },
   );
 
