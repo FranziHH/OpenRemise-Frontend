@@ -35,8 +35,8 @@ class Z21Cv extends _$Z21Cv {
   late final Decoder _decoder;
   Completer<Z21Command>? _responseCompleter;
   final _mutex = Mutex();
-  final int _cv31 = 0;
-  final int _cv32 = 1;
+  int _cv31 = 0;
+  int _cv32 = 1;
 
   /// \todo document
   @override
@@ -55,6 +55,20 @@ class Z21Cv extends _$Z21Cv {
     ref.onDispose(() => sub.cancel());
     _decoder = decoder;
     return {};
+  }
+
+  /// \todo document
+  Future<Z21Command> indexHigh(int cv31) {
+    final result = write(31 - 1, cv31);
+    if (result is LanXCvResult) _cv31 = cv31;
+    return result;
+  }
+
+  /// \todo document
+  Future<Z21Command> indexLow(int cv32) {
+    final result = write(32 - 1, cv32);
+    if (result is LanXCvResult) _cv32 = cv32;
+    return result;
   }
 
   /// \todo document
@@ -88,7 +102,6 @@ class Z21Cv extends _$Z21Cv {
                 cvAddress: cvAddress,
                 value: value,
               );
-
     return _mutex.protect(() => _execute(cmd, cvAddress));
   }
 

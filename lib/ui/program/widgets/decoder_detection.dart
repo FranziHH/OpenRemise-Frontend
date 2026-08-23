@@ -25,8 +25,8 @@ import 'package:Frontend/data/models/decoderdb/common_types.dart';
 import 'package:Frontend/data/models/decoderdb/decoder_definition.dart';
 import 'package:Frontend/data/models/decoderdb/decoder_detection.dart';
 import 'package:Frontend/data/models/decoderdb/firmware_definition.dart';
-import 'package:Frontend/data/models/decoderdb/parse_display_format.dart';
 import 'package:Frontend/data/models/decoderdb/repository.dart';
+import 'package:Frontend/data/models/decoderdb/utility.dart';
 import 'package:Frontend/data/repositories/roco/z21_cv.dart';
 import 'package:Frontend/data/services/http_client.dart';
 import 'package:Frontend/data/services/roco/z21.dart';
@@ -246,9 +246,9 @@ class _DecoderDetectionDialogState
 
       switch (conditionCv.operation) {
         case 'equal':
-          return cv == int.parse(conditionCv.value!);
+          return insideValueSpec(cv!, conditionCv.value!);
         case 'unEqual':
-          return cv != int.parse(conditionCv.value!);
+          return !insideValueSpec(cv!, conditionCv.value!);
         case 'greater':
           return cv! > int.parse(conditionCv.value!);
         case 'greaterEqual':

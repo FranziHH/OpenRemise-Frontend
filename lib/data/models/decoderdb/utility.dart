@@ -13,6 +13,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+bool insideValueSpec(int cv, String valuesString) {
+  return valuesString.split(';').any((part) {
+    final bounds = part.trim().split('-');
+    if (bounds.length == 1) {
+      return cv == int.parse(bounds[0]);
+    }
+    final min = int.parse(bounds[0]);
+    final max = int.parse(bounds[1]);
+    return cv >= min && cv <= max;
+  });
+}
+
 String parseDisplayFormat(String format, List<int> values) {
   final out = StringBuffer();
 

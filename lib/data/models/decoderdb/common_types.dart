@@ -56,6 +56,8 @@ abstract class DetectionCv with _$DetectionCv {
     @JsonKey(name: 'number') required int number,
     @JsonKey(name: 'type') String? type,
     @JsonKey(name: 'mode') String? mode,
+    @JsonKey(name: 'indexHigh') int? indexHigh,
+    @JsonKey(name: 'indexLow') int? indexLow,
   }) = _DetectionCv;
 
   factory DetectionCv.fromJson(Map<String, Object?> json) =>
@@ -113,6 +115,8 @@ abstract class Detection with _$Detection {
   const factory Detection({
     @JsonKey(name: 'type') required String type,
     @JsonKey(name: 'displayFormat') String? displayFormat,
+    @JsonKey(name: 'indexHigh') int? indexHigh,
+    @JsonKey(name: 'indexLow') int? indexLow,
     @Default([]) @JsonKey(name: 'cv') List<DetectionCv> cvs,
     @Default([]) @JsonKey(name: 'cvGroup') List<DetectionCvGroup> cvGroups,
     @Default([])
