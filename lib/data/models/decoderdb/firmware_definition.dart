@@ -312,6 +312,8 @@ abstract class CvDefinition with _$CvDefinition {
     @JsonKey(name: 'possibleValues') String? possibleValues,
     @JsonKey(name: 'defaultValue') int? defaultValue,
     @JsonKey(name: 'mode') String? mode,
+    @JsonKey(name: 'indexHigh') int? indexHigh,
+    @JsonKey(name: 'indexLow') int? indexLow,
     @Default([]) @JsonKey(name: 'description') List<Description> description,
     @Default([])
     @JsonKey(name: 'conditions', readValue: readNestedAsList)
